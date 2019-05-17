@@ -21,8 +21,11 @@ compile 'me.timos.thuanle:fb-native-ad-adapter:latest.version'
 You can check the example in this repo. Basically, the usage of `FBNativeAdAdapter` is as below
 
 ```java
+
+counter added for item
+
 MyAdapter adapter = new MyAdapter();//Your Adaper 
-FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder.with(PLACEHOLDER_ID, adapter)
+FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder.with(PLACEHOLDER_ID,2, adapter)
         .build();
 
 RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
@@ -35,7 +38,7 @@ If you want to span between columns in `GridLayout`, here is it
 ```java
 GridLayoutManager lm = new GridLayoutManager(this, 3);
 MyAdapter adapter = new MyAdapter();//Your adapter
-FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder.with(PLACEHOLDER_ID, adapter)
+FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder.with(PLACEHOLDER_ID,2, adapter)
         .adItemIterval(9)
         .enableSpanRow(lm)
         .build();
