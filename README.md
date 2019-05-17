@@ -22,7 +22,11 @@ You can check the example in this repo. Basically, the usage of `FBNativeAdAdapt
 
 ```java
 
-counter added for item
+/**
+
+counter added 
+
+**/
 
 MyAdapter adapter = new MyAdapter();//Your Adaper 
 FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder.with(PLACEHOLDER_ID,2, adapter)
