@@ -1,10 +1,7 @@
 package me.timos.thuanle.fbnativeadadapter;
 
 import android.content.Context;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -166,6 +166,7 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
         return super.onCreateViewHolder(parent, viewType);
     }
 
+
     private void setSpanAds() {
         if (mParam.gridLayoutManager == null) {
             return ;
@@ -188,10 +189,8 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
         int adItemInterval;
         boolean forceReloadAdOnBind;
 
-        @LayoutRes
         int itemContainerLayoutRes;
 
-        @IdRes
         int itemContainerId;
 
         GridLayoutManager gridLayoutManager;
@@ -222,7 +221,7 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
             return this;
         }
 
-        public Builder adLayout(@LayoutRes int layoutContainerRes, @IdRes int itemContainerId) {
+        public Builder adLayout( int layoutContainerRes, int itemContainerId) {
             mParam.itemContainerLayoutRes = layoutContainerRes;
             mParam.itemContainerId = itemContainerId;
             return this;
