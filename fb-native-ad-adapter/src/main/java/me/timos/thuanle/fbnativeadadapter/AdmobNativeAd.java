@@ -146,7 +146,7 @@ public class AdmobNativeAd extends RecyclerViewAdapterWrapper {
 
         public static Builder with(String placementId, RecyclerView.Adapter wrapped) {
             AdmobParam admobParam = new AdmobParam();
-            admobParam.facebookPlacementId = placementId;
+            admobParam.admobNativeAdId = placementId;
             admobParam.adapter = wrapped;
 
             //default value
@@ -282,7 +282,7 @@ public class AdmobNativeAd extends RecyclerViewAdapterWrapper {
     }
 
     private static class AdmobParam {
-        String facebookPlacementId;
+        String admobNativeAdId;
         RecyclerView.Adapter adapter;
         int adItemInterval;
         boolean forceReloadAdOnBind;
