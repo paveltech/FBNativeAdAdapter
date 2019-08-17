@@ -2,7 +2,6 @@ package me.timos.thuanle.fbnativeadadapterexample;
 
 import android.os.Bundle;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -19,7 +18,7 @@ public class StaggeredGridAdActivity extends AppCompatActivity {
         StaggeredGridLayoutManager lm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         MyAdapter adapter = new MyAdapter();
         FBNativeAdAdapter fbAdapter = FBNativeAdAdapter.Builder
-                .with("321357575164976_321357668498300",2, adapter)
+                .with("321357575164976_321357668498300", adapter)
                 .build();
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);

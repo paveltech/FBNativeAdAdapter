@@ -1,7 +1,6 @@
 package me.timos.thuanle.fbnativeadadapter;
 
 import android.content.Context;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,7 +145,7 @@ public class AdmobNativeAd extends RecyclerViewAdapterWrapper {
 
         public static Builder with(String placementId, RecyclerView.Adapter wrapped) {
             AdmobParam admobParam = new AdmobParam();
-            admobParam.admobNativeAdId = placementId;
+            admobParam.facebookPlacementId = placementId;
             admobParam.adapter = wrapped;
 
             //default value
@@ -282,7 +281,7 @@ public class AdmobNativeAd extends RecyclerViewAdapterWrapper {
     }
 
     private static class AdmobParam {
-        String admobNativeAdId;
+        String facebookPlacementId;
         RecyclerView.Adapter adapter;
         int adItemInterval;
         boolean forceReloadAdOnBind;

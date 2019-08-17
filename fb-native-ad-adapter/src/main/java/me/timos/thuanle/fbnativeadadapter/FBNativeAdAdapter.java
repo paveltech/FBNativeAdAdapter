@@ -1,7 +1,6 @@
 package me.timos.thuanle.fbnativeadadapter;
 
 import android.content.Context;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +28,7 @@ import com.rockerhieu.rvadapter.RecyclerViewAdapterWrapper;
 public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
 
     private static final int TYPE_FB_NATIVE_ADS = 900;
-    public static int DEFAULT_AD_ITEM_INTERVAL = 0;
+    private static final int DEFAULT_AD_ITEM_INTERVAL = 10;
 
     private final Param mParam;
 
@@ -71,8 +72,9 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
         return (position + 1) % (mParam.adItemInterval + 1) == 0;
     }
 
-    private void onBindAdViewHolder(final RecyclerView.ViewHolder holder) {
+    private synchronized void onBindAdViewHolder(final RecyclerView.ViewHolder holder) {
         final AdViewHolder adHolder = (AdViewHolder) holder;
+
         if (mParam.forceReloadAdOnBind || !adHolder.loaded) {
             final NativeAd nativeAd = new NativeAd(adHolder.getContext(), mParam.facebookPlacementId);
             nativeAd.setAdListener(new NativeAdListener() {
@@ -83,7 +85,7 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
 
                 @Override
                 public void onError(Ad ad, AdError adError) {
-                    adHolder.nativeAdContainer.setVisibility(View.GONE);
+                    //adHolder.nativeAdContainer.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -102,12 +104,7 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
                     adHolder.nativeAdCallToAction.setText(nativeAd.getAdCallToAction());
 
                     // Download and display the cover image.
-                    //adHolder.nativeAdMedia.(nativeAd);
-
-                    /**
-                     *  from 5 they make private .setNativeAd
-                     */
-
+                    //adHolder.nativeAdMedia.setNativeAd(nativeAd);
 
                     // Add the AdChoices icon
                     AdOptionsView adChoicesView = new AdOptionsView(adHolder.getContext(), nativeAd, null);
@@ -166,7 +163,6 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
         return super.onCreateViewHolder(parent, viewType);
     }
 
-
     private void setSpanAds() {
         if (mParam.gridLayoutManager == null) {
             return ;
@@ -189,8 +185,10 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
         int adItemInterval;
         boolean forceReloadAdOnBind;
 
+        @LayoutRes
         int itemContainerLayoutRes;
 
+        @IdRes
         int itemContainerId;
 
         GridLayoutManager gridLayoutManager;
@@ -203,11 +201,11 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
             mParam = param;
         }
 
-        public static Builder with(String placementId,int itemCount, RecyclerView.Adapter wrapped) {
+        public static Builder with(String placementId, RecyclerView.Adapter wrapped) {
             Param param = new Param();
             param.facebookPlacementId = placementId;
             param.adapter = wrapped;
-            DEFAULT_AD_ITEM_INTERVAL = itemCount;
+
             //default value
             param.adItemInterval = DEFAULT_AD_ITEM_INTERVAL;
             param.itemContainerLayoutRes = R.layout.item_facebook_native_ad_outline;
@@ -221,7 +219,7 @@ public class FBNativeAdAdapter extends RecyclerViewAdapterWrapper {
             return this;
         }
 
-        public Builder adLayout( int layoutContainerRes, int itemContainerId) {
+        public Builder adLayout(@LayoutRes int layoutContainerRes, @IdRes int itemContainerId) {
             mParam.itemContainerLayoutRes = layoutContainerRes;
             mParam.itemContainerId = itemContainerId;
             return this;
